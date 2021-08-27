@@ -39,6 +39,7 @@ class gen_csv:
             if i['column_name'] == 'Company name':
                 result['Company name'] = [self.fake.company_name() for _ in range(self.rows_num)]
             if i['column_name'] == 'Text':
+                #TODO logic of min chars
                 result['Text'] = [self.fake.text(max_nb_chars=i['max_nb_chars']) for _ in range(self.rows_num)]
             if i['column_name'] == 'Integer':
                 result['Integer'] = [random.randint(i['min'], i['max']) for _ in range(self.rows_num)]
@@ -47,22 +48,11 @@ class gen_csv:
 
         return result
 
-    def to_frame(self):
-        return pd.DataFrame.from_dict(self.gen_res())
+
 
     def to_csv(self):
         #TODO logic give a name
-        return self.to_frame().to_csv(f'source/name.csv')
+        return pd.DataFrame.from_dict(self.gen_res()).to_csv(f'source/name.csv')
 
 
 
-
-
-    def phone_number(self):
-        return
-
-    def company_name(self):
-        return
-
-a = gen_csv(5, [{'column_name':'name'},{'column_name':'Text','max_nb_chars':20}]).to_csv()
-print(a)
