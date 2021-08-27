@@ -1,14 +1,6 @@
 """
 https://www.figma.com/file/GLah5wCMHIyw7hJI4Gekns/CSV-fake-data-generator?node-id=24278%3A2
-+Full name (a combination of first name and last name)
-Job
-Email
-Domain name
-Phone number
-Company name
-Text (with specified range for a number of sentences)
-Integer (with specified range)
-Address
+
 
 """
 import random
@@ -18,7 +10,23 @@ import pandas as pd
 
 
 class gen_csv:
+
     def __init__(self, rows_num, rows):
+        """
+        this class creates fake data and puts it in a file
+        Full name (a combination of first name and last name)
+        Job
+        Email
+        Domain name
+        Phone number
+        Company name
+        Text (with specified range for a number of sentences)
+        Integer (with specified range)
+        Address
+        Date
+        :param rows_num: Integer
+        :param rows: list of dict
+        """
         self.fake = Faker()
         self.rows_num = rows_num
         self.rows = rows
@@ -39,20 +47,17 @@ class gen_csv:
             if i['column_name'] == 'Company name':
                 result['Company name'] = [self.fake.company_name() for _ in range(self.rows_num)]
             if i['column_name'] == 'Text':
-                #TODO logic of min chars
+                # TODO logic of min chars
                 result['Text'] = [self.fake.text(max_nb_chars=i['max_nb_chars']) for _ in range(self.rows_num)]
             if i['column_name'] == 'Integer':
                 result['Integer'] = [random.randint(i['min'], i['max']) for _ in range(self.rows_num)]
             if i['column_name'] == 'Address':
                 result['Address'] = [self.fake.address() for _ in range(self.rows_num)]
+            if i['column_name'] == 'Address':
+                result['Address'] = [self.fake.date() for _ in range(self.rows_num)]
 
         return result
 
-
-
     def to_csv(self):
-        #TODO logic give a name
+        # TODO logic give a name
         return pd.DataFrame.from_dict(self.gen_res()).to_csv(f'source/name.csv')
-
-
-
