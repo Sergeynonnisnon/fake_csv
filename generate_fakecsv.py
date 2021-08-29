@@ -53,8 +53,8 @@ class gen_csv:
                 result['Integer'] = [random.randint(i['min'], i['max']) for _ in range(self.rows_num)]
             if i['column_name'] == 'Address':
                 result['Address'] = [self.fake.address() for _ in range(self.rows_num)]
-            if i['column_name'] == 'Address':
-                result['Address'] = [self.fake.date() for _ in range(self.rows_num)]
+            if i['column_name'] == 'Date':
+                result['Date'] = [self.fake.date() for _ in range(self.rows_num)]
 
         return result
 
